@@ -1,10 +1,9 @@
 package Aplicacio;
 
 public class Main {
-
+	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		Tuple<String,String> trip = Tuple.with("A","B");
 	}
 
 }
