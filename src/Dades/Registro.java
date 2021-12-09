@@ -2,6 +2,6 @@ package Dades;
 
 public class Registro {
 	private int codiUsuari;
-	private Recurso r;
+	private String nomRecurs;
 	private Data d;
 }
