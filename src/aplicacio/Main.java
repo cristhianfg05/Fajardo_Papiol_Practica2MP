@@ -1,4 +1,4 @@
-package Aplicacio;
+package aplicacio;
 
 
 public class Main {

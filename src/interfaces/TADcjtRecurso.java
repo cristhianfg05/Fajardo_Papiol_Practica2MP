@@ -6,11 +6,16 @@ import Dades.Recurso;
 public interface TADcjtRecurso {
 
 	boolean afegirRecurs(Recurso r);
-	boolean EsborrarDadesConsulta(Recurso r);
-	boolean EsborrarDadesConsultaData(Recurso r,Data d);
-	String[] llistaUsuarisConsultat(String r);
-	String[] llistaUsuarisConsultatData(String r,Data d);
-	Recurso recursMesConsultat();
-	Recurso[] llistaConsultaUsuari(String aliesUser);
+	boolean consultarAlumne(String alum); //CONSULTAR USUARI DONAT UN ALIES
+	String [] llistatUsers(Data d);	//CONSULTAR USUARIS EN CERT DIA
+	String [] llistatUsersFranja(Data d1, Data d2);	//CONSULTAR USUARIOS EN FRANJA DE DIES
+	Recurso [] ConsultarRecursAlumne(String alum);	//CONSULTAR RECURSOS D'UN ALUMNE
+	boolean EsborrarDadesConsulta(Recurso r);	//ELIMINAR CONSULTA DE UN RECURSO
+	boolean EsborrarDadesConsultaData(Recurso r, Data d);	//ELIMINAR CONSULTA RECURSO SEGUN DATA
+	String [] LlistatUserConsultaRecurs(String recurs);	//LLISTA USER D'UN RECURS
+	String [] LlistatUserConsultaRecursData(String recurs, Data d);	//LLISTA USERS D'UN RECURS AMB DATA
+	Recurso mesConsultat();	//RETORNA EL RECURS MES CONSULTAT
+	Recurso[] LlistaRecursosConsultatsAlies(String alies);	//LLISTA RECURSOS D'UN USUARI
+	
 	
 }
