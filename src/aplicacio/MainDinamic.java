@@ -1,9 +1,11 @@
 package aplicacio;
 
+import Dades.ListaRecursoEstatica;
 
-public class Main {
+public class MainDinamic {
 
 	public static void main(String[] args) {
 		
 	}
+
 }

@@ -1,5 +1,7 @@
 package Dades;
 
+import java.util.Arrays;
+
 import interfaces.TADcjtRecurso;
 
 public class ListaRecursoEstatica implements TADcjtRecurso {
@@ -40,17 +42,17 @@ public class ListaRecursoEstatica implements TADcjtRecurso {
 
 	@Override
 	public String[] llistatUsers(Data d) {
-		String[] aux = new String[100];
+		String[] users = new String[100];
 		int c = 0;
 		for (int i = 0; i < numRecursos; i++) {
 			for (int j = 0; j < listaRecurso[i].getNumVisita(); j++) {
 				if (listaRecurso[i].getListaVisita()[j].getData().esIgual(d)) {
-					aux[c] = listaRecurso[i].getListaVisita()[j].getAliesAlum();
+					users[c] = listaRecurso[i].getListaVisita()[j].getAliesAlum();
 					c++;
 				}
 			}
 		}
-		return aux;
+		return users;
 	}
 
 	@Override
@@ -60,36 +62,38 @@ public class ListaRecursoEstatica implements TADcjtRecurso {
 			d1 = d2;
 			d2 = aux;
 		}
-		String[] aux = new String[100];
+		String[] alum = new String[100];
 		int c = 0;
 		for (int i = 0; i < numRecursos; i++) {
 			for (int j = 0; j < listaRecurso[i].getNumVisita(); j++) {
-				if (listaRecurso[i].getListaVisita()[j].getData().esDataInferiorOigual(d2) && !(listaRecurso[i].getListaVisita()[j].getData().esDataInferiorOigual(d1))) {	//SI DATA ESTA EN LA FRANJA
-					aux[c] = listaRecurso[i].getListaVisita()[j].getAliesAlum();
+				if (listaRecurso[i].getListaVisita()[j].getData().esDataInferiorOigual(d2)
+						&& !(listaRecurso[i].getListaVisita()[j].getData().esDataInferiorOigual(d1))) { // SI DATA ESTA
+																										// EN LA FRANJA
+					alum[c] = listaRecurso[i].getListaVisita()[j].getAliesAlum();
 					c++;
 				}
 			}
 		}
-		return aux;
+		return alum;
 	}
 
 	@Override
 	public Recurso[] ConsultarRecursAlumne(String alum) {
-		Recurso[]aux = new Recurso[numRecursos];
+		Recurso[] recursos = new Recurso[numRecursos];
 		int c = 0;
 		for (int i = 0; i < numRecursos; i++) {
 			int j = 0;
 			boolean trobat = false;
 			while (j < listaRecurso[i].getNumVisita() && !trobat) {
-				if(listaRecurso[i].getListaVisita()[j].getAliesAlum().equals(alum)) {
-					aux[c]=listaRecurso[i];
+				if (listaRecurso[i].getListaVisita()[j].getAliesAlum().equals(alum)) {
+					recursos[c] = listaRecurso[i];
 					c++;
 					trobat = true;
 				}
 				j++;
 			}
 		}
-		return aux;
+		return recursos;
 	}
 
 	@Override
@@ -104,38 +108,105 @@ public class ListaRecursoEstatica implements TADcjtRecurso {
 		int c = 0;
 		for (int i = 0; i < numRecursos; i++) {
 			for (int j = 0; j < listaRecurso[i].getNumVisita(); j++) {
-				if(listaRecurso[i].getListaVisita()[j].getData().esIgual(d)) {
-					listaRecurso[i].getListaVisita()[j] = listaRecurso[i].getListaVisita()[listaRecurso[i].getNumVisita()-1];
-					r.setNumVisita(r.getNumVisita()-1);
+				if (listaRecurso[i].getListaVisita()[j].getData().esIgual(d)) {
+					listaRecurso[i].getListaVisita()[j] = listaRecurso[i]
+							.getListaVisita()[listaRecurso[i].getNumVisita() - 1];
+					r.setNumVisita(r.getNumVisita() - 1);
 					c++;
 				}
 			}
 		}
-		return c!=0;
+		return c > 0;
 	}
 
 	@Override
 	public String[] LlistatUserConsultaRecurs(String recurs) {
-		String aux []= new String[100];
-		return null;
+		String alum[] = new String[100];
+		int i = 0;
+		boolean trobat = false;
+		while (i < numRecursos && !trobat) {
+			if (listaRecurso[i].getNombre().equalsIgnoreCase(recurs)) {
+				trobat = true;
+			} else
+				i++;
+		}
+		for (int j = 0; j < listaRecurso[i].getNumVisita(); j++) {
+			alum[j] = listaRecurso[i].getListaVisita()[j].getAliesAlum();
+		}
+		return alum;
 	}
 
 	@Override
 	public String[] LlistatUserConsultaRecursData(String recurs, Data d) {
-		// TODO Auto-generated method stub
-		return null;
+		String alum[] = new String[100];
+		int i = 0;
+		boolean trobat = false;
+		while (i < numRecursos && !trobat) {
+			if (listaRecurso[i].getNombre().equalsIgnoreCase(recurs)) {
+				trobat = true;
+			} else
+				i++;
+		}
+		int c = 0;
+		for (int j = 0; j < listaRecurso[i].getNumVisita(); j++) {
+			if (listaRecurso[i].getListaVisita()[j].getData().esIgual(d)) {
+				alum[c] = listaRecurso[i].getListaVisita()[j].getAliesAlum();
+				c++;
+			}
+		}
+		return alum;
 	}
 
 	@Override
 	public Recurso mesConsultat() {
-		// TODO Auto-generated method stub
-		return null;
+		Recurso mesConsultat = null;
+		int mesConsultatNum = -1;
+		for (int i = 0; i < numRecursos; i++) {
+			if (listaRecurso[i].getNumVisita() > mesConsultatNum) {
+				mesConsultatNum = listaRecurso[i].getNumVisita();
+				mesConsultat = listaRecurso[i].copia();
+			}
+		}
+		return mesConsultat;
+	}
+
+	public Recurso[] getListaRecurso() {
+		return listaRecurso;
+	}
+
+	public int getNumRecursos() {
+		return numRecursos;
 	}
 
 	@Override
 	public Recurso[] LlistaRecursosConsultatsAlies(String alies) {
-		// TODO Auto-generated method stub
-		return null;
+		Recurso[] recursos = new Recurso[100];
+		int c = 0;
+		for (int i = 0; i < numRecursos; i++) {
+			int j = 0;
+			boolean trobat = false;
+			while (j < listaRecurso[i].getNumVisita() && !trobat) {
+				if(listaRecurso[i].getListaVisita()[j].getAliesAlum().equals(alies)) {
+					trobat = true;
+					recursos[c]=listaRecurso[i];
+					c++;
+				}else
+					j++;
+			}
+		}
+		return recursos;
 	}
+
+	@Override
+	public String toString() {
+		String concat="";
+		for (int i = 0; i < numRecursos; i++) {
+			concat = concat + listaRecurso[i].toString()+"\n";
+		}
+		return "ListaRecursoEstatica [listaRecurso=\n" + concat + ", numRecursos=" + numRecursos
+				+ "]";
+	}
+
+	
 
 }

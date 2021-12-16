@@ -47,6 +47,12 @@ public class Visita {
 		this.hora = hora;
 	}
 
+	@Override
+	public String toString() {
+		return "Visita [CodiAlumno=" + CodiAlumno + ", aliesAlum=" + aliesAlum + ", data=" + data + ", hora=" + hora
+				+ "]";
+	}
+
 
 	
 }
