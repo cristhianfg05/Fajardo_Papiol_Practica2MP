@@ -8,7 +8,7 @@ public class Visita {
 	private Data data;
 	private Time hora;
 	
-	public Visita (int codi, Data d, Time t, String alies) {
+	public Visita (int codi, String alies, Data d, Time t ) {
 		this.CodiAlumno = codi;
 		this.data = d;
 		this.hora = t;

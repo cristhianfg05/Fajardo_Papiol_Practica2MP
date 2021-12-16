@@ -9,12 +9,33 @@ public class ListaRecursoEstatica implements TADcjtRecurso {
 	private int numRecursos;
 
 	public ListaRecursoEstatica() {
-		this.listaRecurso = new Recurso[100];
+		this.listaRecurso = new Recurso[1000];
 		this.numRecursos = 0;
 	}
 
+	public boolean afegirVisita(String r, Visita v) {
+		int i = 0;
+		boolean trobat = false;
+		while(i<numRecursos && !trobat) {
+			if(listaRecurso[i].getNombre().equalsIgnoreCase(r)) {
+				listaRecurso[i].afegirVisita(v);
+				trobat = true;
+				return true;
+			}else
+				i++;
+		}
+		return false;
+	}
+	
 	@Override
 	public boolean afegirRecurs(Recurso r) {
+		int i = 0;
+		while(i<numRecursos) {
+			if(listaRecurso[i].getNombre().equalsIgnoreCase(r.getNombre())) {
+				return false;
+			}
+			i++;	
+		}
 		if (!(numRecursos == listaRecurso.length)) {
 			listaRecurso[numRecursos] = r;
 			numRecursos++;
@@ -201,7 +222,7 @@ public class ListaRecursoEstatica implements TADcjtRecurso {
 	public String toString() {
 		String concat="";
 		for (int i = 0; i < numRecursos; i++) {
-			concat = concat + listaRecurso[i].toString()+"\n";
+			concat = concat + "Recurso: "+listaRecurso[i].toString()+"\n";
 		}
 		return "ListaRecursoEstatica [listaRecurso=\n" + concat + ", numRecursos=" + numRecursos
 				+ "]";

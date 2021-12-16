@@ -11,7 +11,7 @@ public class Recurso {
 	public Recurso(int codi, String nom) {
 		this.codigo = codi;
 		this.nombre = nom;
-		this.listaVisita = new Visita[100];
+		this.listaVisita = new Visita[1000];
 		this.numVisita = 0;
 	}
 
@@ -23,7 +23,7 @@ public class Recurso {
 	}
 
 	public void afegirVisita (Visita v) {
-		if(numVisita < listaVisita.length-1) {
+		if(!(numVisita == listaVisita.length)) {
 			listaVisita[numVisita] = v;
 			numVisita++;
 		}
@@ -70,7 +70,7 @@ public class Recurso {
 	public String toString() {
 		String concat = " ";
 		for (int i = 0; i < numVisita; i++) {
-			concat = concat + listaVisita[i].toString();
+			concat = concat + "Visita: "+listaVisita[i].toString();
 		}
 		return "Recurso [codigo=" + codigo + ", nombre=" + nombre + ", listaVisita=" + concat + ", numVisita="
 				+ numVisita + "]";
