@@ -53,6 +53,8 @@ public class Visita {
 				+ "]";
 	}
 
-
+	public Visita copia() {
+		return new Visita(this.CodiAlumno,this.aliesAlum,this.data,this.hora);
+	}
 	
 }

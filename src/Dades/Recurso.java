@@ -1,6 +1,5 @@
 package Dades;
 
-import java.util.Arrays;
 
 public class Recurso {
 	private int codigo;

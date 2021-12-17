@@ -16,25 +16,25 @@ public class ListaRecursoEstatica implements TADcjtRecurso {
 	public boolean afegirVisita(String r, Visita v) {
 		int i = 0;
 		boolean trobat = false;
-		while(i<numRecursos && !trobat) {
-			if(listaRecurso[i].getNombre().equalsIgnoreCase(r)) {
+		while (i < numRecursos && !trobat) {
+			if (listaRecurso[i].getNombre().equalsIgnoreCase(r)) {
 				listaRecurso[i].afegirVisita(v);
 				trobat = true;
 				return true;
-			}else
+			} else
 				i++;
 		}
 		return false;
 	}
-	
+
 	@Override
 	public boolean afegirRecurs(Recurso r) {
 		int i = 0;
-		while(i<numRecursos) {
-			if(listaRecurso[i].getNombre().equalsIgnoreCase(r.getNombre())) {
+		while (i < numRecursos) {
+			if (listaRecurso[i].getNombre().equalsIgnoreCase(r.getNombre())) {
 				return false;
 			}
-			i++;	
+			i++;
 		}
 		if (!(numRecursos == listaRecurso.length)) {
 			listaRecurso[numRecursos] = r;
@@ -63,7 +63,7 @@ public class ListaRecursoEstatica implements TADcjtRecurso {
 
 	@Override
 	public String[] llistatUsers(Data d) {
-		String[] users = new String[100];
+		String[] users = new String[10000];
 		int c = 0;
 		for (int i = 0; i < numRecursos; i++) {
 			for (int j = 0; j < listaRecurso[i].getNumVisita(); j++) {
@@ -73,7 +73,11 @@ public class ListaRecursoEstatica implements TADcjtRecurso {
 				}
 			}
 		}
-		return users;
+		String[] s = new String[c];
+		for (int i = 0; i < c; i++) {
+			s[i] = users[i];
+		}
+		return s;
 	}
 
 	@Override
@@ -83,7 +87,7 @@ public class ListaRecursoEstatica implements TADcjtRecurso {
 			d1 = d2;
 			d2 = aux;
 		}
-		String[] alum = new String[100];
+		String[] alum = new String[10000];
 		int c = 0;
 		for (int i = 0; i < numRecursos; i++) {
 			for (int j = 0; j < listaRecurso[i].getNumVisita(); j++) {
@@ -95,7 +99,11 @@ public class ListaRecursoEstatica implements TADcjtRecurso {
 				}
 			}
 		}
-		return alum;
+		String[] s = new String[c];
+		for (int i = 0; i < c; i++) {
+			s[i] = alum[i];
+		}
+		return s;
 	}
 
 	@Override
@@ -114,12 +122,18 @@ public class ListaRecursoEstatica implements TADcjtRecurso {
 				j++;
 			}
 		}
-		return recursos;
+		// Para evitar problemass con los elementos null creamos otro array para enviar
+		// este con los elementos del anterior asi redimensionandolo
+		Recurso[] r = new Recurso[c];
+		for (int i = 0; i < c; i++) {
+			r[i] = recursos[i];
+		}
+		return r;
 	}
 
 	@Override
 	public boolean EsborrarDadesConsulta(Recurso r) {
-		r.setListaVisita(new Visita[100]);
+		r.setListaVisita(new Visita[1000]);
 		r.setNumVisita(0);
 		return false;
 	}
@@ -142,7 +156,7 @@ public class ListaRecursoEstatica implements TADcjtRecurso {
 
 	@Override
 	public String[] LlistatUserConsultaRecurs(String recurs) {
-		String alum[] = new String[100];
+		String alum[] = new String[10000];
 		int i = 0;
 		boolean trobat = false;
 		while (i < numRecursos && !trobat) {
@@ -151,15 +165,20 @@ public class ListaRecursoEstatica implements TADcjtRecurso {
 			} else
 				i++;
 		}
-		for (int j = 0; j < listaRecurso[i].getNumVisita(); j++) {
+		int j = 0;
+		for (; j < listaRecurso[i].getNumVisita(); j++) {
 			alum[j] = listaRecurso[i].getListaVisita()[j].getAliesAlum();
 		}
-		return alum;
+		String[] s = new String[j];
+		for (int k = 0; k < j; k++) {
+			s[k] = alum[k];
+		}
+		return s;
 	}
 
 	@Override
 	public String[] LlistatUserConsultaRecursData(String recurs, Data d) {
-		String alum[] = new String[100];
+		String alum[] = new String[10000];
 		int i = 0;
 		boolean trobat = false;
 		while (i < numRecursos && !trobat) {
@@ -175,7 +194,11 @@ public class ListaRecursoEstatica implements TADcjtRecurso {
 				c++;
 			}
 		}
-		return alum;
+		String[] s = new String[c];
+		for (int k = 0; k < c; k++) {
+			s[k] = alum[k];
+		}
+		return s;
 	}
 
 	@Override
@@ -201,33 +224,85 @@ public class ListaRecursoEstatica implements TADcjtRecurso {
 
 	@Override
 	public Recurso[] LlistaRecursosConsultatsAlies(String alies) {
-		Recurso[] recursos = new Recurso[100];
+		Recurso[] recursos = new Recurso[10000];
 		int c = 0;
 		for (int i = 0; i < numRecursos; i++) {
 			int j = 0;
 			boolean trobat = false;
 			while (j < listaRecurso[i].getNumVisita() && !trobat) {
-				if(listaRecurso[i].getListaVisita()[j].getAliesAlum().equals(alies)) {
+				if (listaRecurso[i].getListaVisita()[j].getAliesAlum().equals(alies)) {
 					trobat = true;
-					recursos[c]=listaRecurso[i];
+					recursos[c] = listaRecurso[i];
 					c++;
-				}else
+				} else
 					j++;
 			}
+		}
+		Recurso[] s = new Recurso[c];
+		for (int i = 0; i < c; i++) {
+			s[i] = recursos[i];
 		}
 		return recursos;
 	}
 
 	@Override
 	public String toString() {
-		String concat="";
+		String concat = "";
 		for (int i = 0; i < numRecursos; i++) {
-			concat = concat + "Recurso: "+listaRecurso[i].toString()+"\n";
+			concat = concat + "Recurso: " + listaRecurso[i].toString() + "\n";
 		}
-		return "ListaRecursoEstatica [listaRecurso=\n" + concat + ", numRecursos=" + numRecursos
-				+ "]";
+		return "ListaRecursoEstatica [listaRecurso=\n" + concat + ", numRecursos=" + numRecursos + "]";
 	}
-
 	
-
+	public void QuickSortData(Visita[] v,int izq, int der) {
+		Visita pivote = v[izq].copia();
+		int i = izq;
+		int j = der;
+		Visita aux;
+		
+		while(i<j) {
+			while(v[i].getData().esDataInferiorOigual(pivote.getData()) && i<j) 
+				i++;
+			while(!(v[j].getData().esDataInferiorOigual(pivote.getData())))
+				j--;
+			if(i<j) {
+				aux = v[i].copia();
+				v[i] = v[j].copia();
+				v[j] = aux.copia();
+			}
+		}
+		v[izq] = v[j].copia();
+		v[j] = pivote.copia();
+		
+		if(izq < j-1) 
+			QuickSortData(v, izq, j-1);
+		if(j+1 < der)
+			QuickSortData(v, j+1, der);
+	}
+	
+	public void QuickSortHora(Visita[] v,int izq, int der) {
+		Visita pivote = v[izq].copia();
+		int i = izq;
+		int j = der;
+		Visita aux;
+		
+		while(i<j) {
+			while(v[i].getHora().compareTo(pivote.getHora()) <=0 && i<j) 
+				i++;
+			while(v[j].getHora().compareTo(pivote.getHora()) >0)
+				j--;
+			if(i<j) {
+				aux = v[i].copia();
+				v[i] = v[j].copia();
+				v[j] = aux.copia();
+			}
+		}
+		v[izq] = v[j].copia();
+		v[j] = pivote.copia();
+		
+		if(izq < j-1) 
+			QuickSortHora(v, izq, j-1);
+		if(j+1 < der)
+			QuickSortHora(v, j+1, der);
+	}
 }
