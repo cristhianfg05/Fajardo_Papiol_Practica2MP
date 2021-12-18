@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 import java.sql.Time;
 import java.util.Scanner;
 
-public class MainStatic {
+public class Main {
 
 	public static void main(String[] args) throws FileNotFoundException {
 		//METODOS QUE FUNCIONAN DEL TAD-ESTATICO 1-2-3-4-5-6-7-8-9-10-11

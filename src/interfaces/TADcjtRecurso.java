@@ -20,6 +20,8 @@ public interface TADcjtRecurso {
 	String [] LlistatUserConsultaRecursData(String recurs, Data d);	//LLISTA USERS D'UN RECURS AMB DATA
 	Recurso mesConsultat();											//RETORNA EL RECURS MES CONSULTAT
 	Recurso[] LlistaRecursosConsultatsAlies(String alies);			//LLISTA RECURSOS D'UN USUARI
+	void QuickSortHora(Visita[] v,int izq, int der);
+	void QuickSortData(Visita[] v,int izq, int der);
 	
 	
 }
