@@ -8,7 +8,7 @@ public class ListaRecursoEstatica implements TADcjtRecurso {
 	private int numRecursos;
 
 	public ListaRecursoEstatica() {
-		this.listaRecurso = new Recurso[1000];
+		this.listaRecurso = new Recurso[10000];
 		this.numRecursos = 0;
 	}
 
@@ -133,7 +133,7 @@ public class ListaRecursoEstatica implements TADcjtRecurso {
 
 	@Override
 	public boolean EsborrarDadesConsulta(Recurso r) {
-		r.setListaVisita(new Visita[1000]);
+		r.setListaVisita(new Visita[10000]);
 		r.setNumVisita(0);
 		return true;
 	}
@@ -306,5 +306,11 @@ public class ListaRecursoEstatica implements TADcjtRecurso {
 			QuickSortHora(v, izq, j-1);
 		if(j+1 < der)
 			QuickSortHora(v, j+1, der);
+	}
+
+	@Override
+	public Node getPrimer() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

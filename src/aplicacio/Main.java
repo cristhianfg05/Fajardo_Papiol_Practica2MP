@@ -40,9 +40,20 @@ public class Main {
 		System.out.println("------------------------------------------------");
 		listEst.QuickSortHora(listEst.getListaRecurso()[0].getListaVisita(),0,listEst.getListaRecurso()[0].getNumVisita()-1);
 		System.out.println(listEst.getListaRecurso()[0]);*/
-		TADcjtRecurso cjt = new ListaRecursoEstatica();
-		cjt = afegirDadesDeFitxer(100);
-		System.out.print(cjt.getListaRecurso()[0].getNombre());
+		TADcjtRecurso cjt = new ListaRecursoDinamica();
+		cjt = afegirDadesDeFitxer2(1000);
+		Node aux = cjt.getPrimer();
+		
+		//System.out.print(cjt);
+		
+		//codi esther
+		System.out.println("\n"+cjt.getPrimer().getR());
+		System.out.println("------------------------------------------------");
+		cjt.QuickSortData(cjt.getPrimer().getR().getListaVisita(),0,cjt.getPrimer().getR().getNumVisita()-1);
+		System.out.println(cjt.getPrimer().getR());
+		System.out.println("------------------------------------------------");
+		cjt.QuickSortHora(cjt.getPrimer().getR().getListaVisita(),0,cjt.getPrimer().getR().getNumVisita()-1);
+		System.out.println(cjt.getPrimer().getR());
 
 	}
 
@@ -83,6 +94,32 @@ public class Main {
 			}
 			return listEst;
 		}
+		
+		private static ListaRecursoDinamica afegirDadesDeFitxer2(int linies) throws FileNotFoundException {
+            ListaRecursoDinamica listEst = new ListaRecursoDinamica();
+            String [] fichero = llegirLiniesFitxer(linies);
+            for (int i = 0; i < fichero.length; i++) {
+                String []aux = fichero[i].split(",");
+                listEst.afegirRecurs(new Recurso(Integer.parseInt(aux[0]), aux[1]));
+                boolean trobat = false;
+                int j = 0;
+                Node nodeAux = listEst.getPrimer();
+                while(j<listEst.getNumElem() && !trobat) {
+                    if(nodeAux.getR().getNombre().equalsIgnoreCase(aux[1])) {
+                        trobat = true;
+                    }else {
+                    	j++;
+                        nodeAux = nodeAux.getSeguent();
+                    }
+                        
+                }
+                listEst.afegirVisita(
+                		nodeAux.getR().getNombre(),
+                        new Visita(Integer.parseInt(aux[2]),aux[3],new Data(Integer.parseInt(aux[4]),Integer.parseInt(aux[5]),Integer.parseInt(aux[6])),Time.valueOf(aux[7])));
+
+            }
+            return listEst;
+        }
 		
 	}
 

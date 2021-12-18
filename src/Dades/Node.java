@@ -11,7 +11,7 @@ public class Node {
 
 
     public Recurso getR() {
-        return r;
+        return this.r;
     }
 
     public void setR(Recurso r) {

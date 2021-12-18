@@ -1,11 +1,13 @@
 package interfaces;
 
 import Dades.Data;
+import Dades.Node;
 import Dades.Recurso;
 import Dades.Visita;
 
 public interface TADcjtRecurso {
 
+	Node getPrimer();
 	int getNumRecursos();
 	Recurso[] getListaRecurso();
 	boolean afegirRecurs(Recurso r);
@@ -20,7 +22,7 @@ public interface TADcjtRecurso {
 	String [] LlistatUserConsultaRecursData(String recurs, Data d);	//LLISTA USERS D'UN RECURS AMB DATA
 	Recurso mesConsultat();											//RETORNA EL RECURS MES CONSULTAT
 	Recurso[] LlistaRecursosConsultatsAlies(String alies);			//LLISTA RECURSOS D'UN USUARI
-	void QuickSortHora(Visita[] v,int izq, int der);
+	void QuickSortHora(Visita[] v,int izq, int der);	
 	void QuickSortData(Visita[] v,int izq, int der);
 	
 	
