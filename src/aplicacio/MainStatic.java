@@ -2,14 +2,11 @@ package aplicacio;
 
 
 import Dades.*;
+import interfaces.TADcjtRecurso;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.sql.Time;
-import java.util.Iterator;
 import java.util.Scanner;
 
 public class MainStatic {
@@ -36,13 +33,16 @@ public class MainStatic {
 			
 		}*/
 		//System.out.print(listEst.toString());
-		System.out.println(listEst.getListaRecurso()[0]);
+		/*System.out.println(listEst.getListaRecurso()[0]);
 		System.out.println("------------------------------------------------");
 		listEst.QuickSortData(listEst.getListaRecurso()[0].getListaVisita(),0,listEst.getListaRecurso()[0].getNumVisita()-1);
 		System.out.println(listEst.getListaRecurso()[0]);
 		System.out.println("------------------------------------------------");
 		listEst.QuickSortHora(listEst.getListaRecurso()[0].getListaVisita(),0,listEst.getListaRecurso()[0].getNumVisita()-1);
-		System.out.println(listEst.getListaRecurso()[0]);
+		System.out.println(listEst.getListaRecurso()[0]);*/
+		TADcjtRecurso cjt = new ListaRecursoEstatica();
+		cjt = afegirDadesDeFitxer(100);
+		System.out.print(cjt.getListaRecurso()[0].getNombre());
 
 	}
 

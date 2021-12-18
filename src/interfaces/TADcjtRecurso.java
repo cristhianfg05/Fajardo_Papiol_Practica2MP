@@ -2,10 +2,14 @@ package interfaces;
 
 import Dades.Data;
 import Dades.Recurso;
+import Dades.Visita;
 
 public interface TADcjtRecurso {
 
+	int getNumRecursos();
+	Recurso[] getListaRecurso();
 	boolean afegirRecurs(Recurso r);
+	boolean afegirVisita(String r, Visita v);
 	boolean consultarAlumne(String alum); 							//CONSULTAR USUARI DONAT UN ALIES
 	String [] llistatUsers(Data d);									//CONSULTAR USUARIS EN CERT DIA
 	String [] llistatUsersFranja(Data d1, Data d2);					//CONSULTAR USUARIOS EN FRANJA DE DIES

@@ -21,11 +21,13 @@ public class Recurso {
 		this.numVisita = numV;
 	}
 
-	public void afegirVisita (Visita v) {
+	public boolean afegirVisita (Visita v) {
 		if(!(numVisita == listaVisita.length)) {
 			listaVisita[numVisita] = v;
 			numVisita++;
+			return true;
 		}
+		return false;
 	}
 
 	public int getCodigo() {

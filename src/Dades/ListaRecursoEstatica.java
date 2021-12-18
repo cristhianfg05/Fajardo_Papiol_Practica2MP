@@ -1,6 +1,5 @@
 package Dades;
 
-import java.util.Arrays;
 
 import interfaces.TADcjtRecurso;
 
@@ -13,18 +12,19 @@ public class ListaRecursoEstatica implements TADcjtRecurso {
 		this.numRecursos = 0;
 	}
 
+	@Override
 	public boolean afegirVisita(String r, Visita v) {
 		int i = 0;
 		boolean trobat = false;
+		boolean afegit = false;
 		while (i < numRecursos && !trobat) {
 			if (listaRecurso[i].getNombre().equalsIgnoreCase(r)) {
-				listaRecurso[i].afegirVisita(v);
+				afegit = listaRecurso[i].afegirVisita(v);
 				trobat = true;
-				return true;
 			} else
 				i++;
 		}
-		return false;
+		return afegit;
 	}
 
 	@Override
@@ -135,7 +135,7 @@ public class ListaRecursoEstatica implements TADcjtRecurso {
 	public boolean EsborrarDadesConsulta(Recurso r) {
 		r.setListaVisita(new Visita[1000]);
 		r.setNumVisita(0);
-		return false;
+		return true;
 	}
 
 	@Override
@@ -213,11 +213,13 @@ public class ListaRecursoEstatica implements TADcjtRecurso {
 		}
 		return mesConsultat;
 	}
-
+	
+	@Override
 	public Recurso[] getListaRecurso() {
 		return listaRecurso;
 	}
 
+	@Override
 	public int getNumRecursos() {
 		return numRecursos;
 	}
@@ -242,7 +244,7 @@ public class ListaRecursoEstatica implements TADcjtRecurso {
 		for (int i = 0; i < c; i++) {
 			s[i] = recursos[i];
 		}
-		return recursos;
+		return s;
 	}
 
 	@Override

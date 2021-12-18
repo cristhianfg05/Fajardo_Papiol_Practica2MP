@@ -134,5 +134,23 @@ public class ListaRecursoDinamica implements TADcjtRecurso{
         return null;
     }
 
+	@Override
+	public boolean afegirVisita(String r, Visita v) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public int getNumRecursos() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Recurso[] getListaRecurso() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
     
 }
