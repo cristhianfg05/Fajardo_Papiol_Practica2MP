@@ -137,27 +137,53 @@ public class ListaRecursoDinamica implements TADcjtRecurso {
 
 	@Override
 	public boolean EsborrarDadesConsulta(Recurso r) {
-		r.setListaVisita(new Visita[10000]);
-		r.setNumVisita(0);
-		return false;
+		int i = 0;
+		Node aux = primer;
+		boolean trobat = false;
+		while(i<numElem && !trobat) {
+			if(aux.getR().getNombre().equalsIgnoreCase(r.getNombre())) {
+				trobat = true;
+			}else {
+				i++;
+				aux = aux.getSeguent();
+			}
+		}
+		if(trobat) {
+			aux.getR().setListaVisita(new Visita[1000]);
+			aux.getR().setNumVisita(0);
+			return true;
+		}else {
+			return false;
+		}
 	}
 
 	@Override
 	public boolean EsborrarDadesConsultaData(Recurso r, Data d) {
-		int c = 0;
+		int i = 0;
 		Node nodeAux = primer;
-		for (int i = 0; i < numElem; i++) {
-			for (int j = 0; j < nodeAux.getR().getNumVisita(); j++) {
-				if (nodeAux.getR().getListaVisita()[j].getData().esIgual(d)) {
-					nodeAux.getR().getListaVisita()[j] = nodeAux.getR().getListaVisita()[nodeAux.getR().getNumVisita()
-							- 1];
-					r.setNumVisita(r.getNumVisita() - 1);
-					c++;
-				}
-			}
-			nodeAux = nodeAux.getSeguent();
+		boolean trobat = false;
+		Node aux = primer;
+		while(i<numElem && !trobat) {
+			if(aux.getR().getNombre().equalsIgnoreCase(r.getNombre())) {
+				trobat = true;
+			}else
+				i++;
 		}
-		return c > 0;
+		
+		int j = 0;
+		boolean borrado = false;
+		while(j<aux.getR().getNumVisita()) {
+			if(aux.getR().getListaVisita()[j].getData().esIgual(d)) {
+				Visita [] lista = aux.getR().getListaVisita();
+				lista[j] = aux.getR().getListaVisita()[aux.getR().getNumVisita()-1];
+				aux.getR().setListaVisita(lista);
+				aux.getR().setNumVisita(aux.getR().getNumVisita()-1);
+				borrado = true;
+				j--;
+			}
+			j++;
+		}
+		return borrado;
 	}
 
 	@Override
@@ -210,7 +236,7 @@ public class ListaRecursoDinamica implements TADcjtRecurso {
 		for (int k = 0; k < c; k++) {
 			s[k] = alum[k];
 		}
-		return alum;
+		return s;
 	}
 
 	@Override
@@ -251,7 +277,7 @@ public class ListaRecursoDinamica implements TADcjtRecurso {
 		for (int i = 0; i < c; i++) {
 			s[i] = recursos[i];
 		}
-		return recursos;
+		return s;
 	}
 
 	public String toString() {
@@ -280,7 +306,19 @@ public class ListaRecursoDinamica implements TADcjtRecurso {
 
 	@Override
 	public Recurso[] getListaRecurso() {
-		return null;
+		Recurso[] r = new Recurso[numElem];
+		int c = 0;
+		Node aux = primer;
+		for (int i = 0; i < numElem; i++) {
+			r[i] = aux.getR().copia();
+			aux = aux.getSeguent();
+			c++;
+		}
+		Recurso[] r2 = new Recurso[c];
+		for (int i = 0; i < r2.length; i++) {
+			r2[i] = r[i].copia();
+		}
+		return r2;
 	}
 
 	@Override
@@ -288,11 +326,13 @@ public class ListaRecursoDinamica implements TADcjtRecurso {
 		boolean trobat=false;
         boolean afegit=false;
         Node nodeAux = primer;
-        while (nodeAux.getSeguent()!=null && !trobat) {
+        int i = 0;
+        while (i < numElem && !trobat) {
             if (nodeAux.getR().getNombre().equalsIgnoreCase(r)) {
                 afegit=nodeAux.getR().afegirVisita(v);
                 trobat=true;
             } else {
+            	i++;
             	nodeAux=nodeAux.getSeguent();
             }
         }

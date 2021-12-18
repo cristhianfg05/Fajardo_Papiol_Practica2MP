@@ -138,7 +138,9 @@ class TestListaEstatica {
 	@Order(11)
 	void testEsborrarDadesConsultaData() {
 		boolean resultEsp = true;
-		boolean result = instance.EsborrarDadesConsultaData(instance.getListaRecurso()[1], new Data(1, 1, 2000));
+		instance.afegirVisita("Programacion examen", new Visita(1, "Cristhian", new Data(5, 1, 2000), Time.valueOf("10:05:32")));
+		System.out.print(instance);
+		boolean result = instance.EsborrarDadesConsultaData(instance.getListaRecurso()[2], new Data(5, 1, 2000));
 		assertEquals(resultEsp, result);
 	}
 

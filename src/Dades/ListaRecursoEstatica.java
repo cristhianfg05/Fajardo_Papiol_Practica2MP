@@ -132,7 +132,7 @@ public class ListaRecursoEstatica implements TADcjtRecurso {
 	}
 
 	@Override
-	public boolean EsborrarDadesConsulta(Recurso r) {
+	public boolean EsborrarDadesConsulta(Recurso r) {//EL RECURSO ENVIADO ES UNA INSTANCIA DE LA LISTA
 		r.setListaVisita(new Visita[10000]);
 		r.setNumVisita(0);
 		return true;
@@ -140,18 +140,28 @@ public class ListaRecursoEstatica implements TADcjtRecurso {
 
 	@Override
 	public boolean EsborrarDadesConsultaData(Recurso r, Data d) {
-		int c = 0;
-		for (int i = 0; i < numRecursos; i++) {
-			for (int j = 0; j < listaRecurso[i].getNumVisita(); j++) {
-				if (listaRecurso[i].getListaVisita()[j].getData().esIgual(d)) {
-					listaRecurso[i].getListaVisita()[j] = listaRecurso[i]
-							.getListaVisita()[listaRecurso[i].getNumVisita() - 1];
-					r.setNumVisita(r.getNumVisita() - 1);
-					c++;
-				}
-			}
+		int i = 0;
+		boolean trobat = false;
+		while(i<numRecursos && !trobat) {
+			if(listaRecurso[i].getNombre().equalsIgnoreCase(r.getNombre())){
+				trobat = true;
+			}else
+				i++;
 		}
-		return c > 0;
+		int j = 0;
+		boolean borrado = false;
+		while(j < listaRecurso[i].getNumVisita()) {
+			if(listaRecurso[i].getListaVisita()[j].getData().esIgual(d)) {
+				Visita [] aux = listaRecurso[i].getListaVisita();
+				aux[j] = listaRecurso[i].getListaVisita()[listaRecurso[i].getNumVisita()-1];
+				listaRecurso[i].setListaVisita(aux);
+				listaRecurso[i].setNumVisita(listaRecurso[i].getNumVisita()-1);
+				borrado = true;
+				j--;
+			}
+			j++;
+		}
+		return borrado;
 	}
 
 	@Override
